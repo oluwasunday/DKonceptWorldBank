@@ -1,0 +1,14 @@
+﻿ 
+
+<div>
+    <h3>All products</h3>
+</div>
+
+<h2>@Model.CurrentCategory</h2>
+
+@{
+    foreach (Product item in Model.Products)
+    {
+        @Html.PartialAsync("Product Summary", item);
+    }
+}

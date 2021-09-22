@@ -1,0 +1,64 @@
+﻿@*@using AbimMall.Models
+    @model IEnumerable<Product>*@
+@{ 
+    List<Product> products = ViewData["products"] as List<Product>;
+    List<Category> categories = ViewData["categories"] as List<Category>;
+}
+
+
+
+<div class="container">
+    <h1>Products in stock</h1>
+
+    <div class="row">
+        <form method="post" asp-controller="Product" asp-action="List" class="search-form">
+            <input class="search-input col-md-7" name="categoryName" placeholder="category name" />
+
+            <button class="search-button float-md-right col-md-5" type="submit" style="height:100%">Submit</button>
+        </form>
+    </div>
+
+    <br />
+
+    <div class="row">
+
+        <div class="col-lg-3">
+            <div class="card">
+                <h5 class="ml-4">All Categories</h5>
+                <div class="card-body">
+
+
+
+                    @foreach (var category in categories)
+                    {
+                        <p class="align-top mb-2 ml-4" style="font-size:14px">
+                            @*<a asp-controller="Product" asp-action="List" asp-route-name="@category.CategoryName">@category.CategoryName</a>*@
+                            @category.CategoryName
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row">
+                @foreach (var product in products)
+                {
+                    <div class="col-sm-6 col-md-3 col-12 mb-2 p-3">
+                        <div class="card">
+                            <img src="@product.ImageThumbnailUrl" alt="" style="width:100%; height:200px" />
+                            <div class="card-body">
+                                <h4 class="float-right">@product.Price.ToString("c")</h4>
+                                <h6 class="align-top">
+                                    <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@product.ProductId">@product.ProductName</a>
+                                </h6>
+
+                               @* <a href="#" class="btn btn-primary">To Cart</a>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

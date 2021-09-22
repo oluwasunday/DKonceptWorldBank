@@ -1,0 +1,58 @@
+﻿
+
+@{
+    List<Category> categories = ViewData["categories"] as List<Category>;
+    Category category = ViewData["category"] as Category;
+    //ViewData["Title"] = "ProductByCategoryName";
+}
+
+<h1>ProductByCategoryName</h1>
+
+
+
+<div class="container">
+    <h1>Products in stock</h1>
+
+
+    <div class="row">
+
+        <div class="col-lg-3">
+            <div class="card">
+                <h5>All Categories</h5>
+                <div class="card-body">
+
+                    @foreach (var cat in categories)
+                    {
+                        <p class="align-top mb-2" style="font-size:14px">
+                            <!--<a asp-controller="Product" asp-action="Categories">category.CategoryName</a>-->
+                            <a asp-controller="Product" asp-action="ProductByCategoryName" asp-route-name="@cat.CategoryId">@cat.CategoryName</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="row">
+                @foreach (var product in category.Products)
+                {
+                    <div class="col-lg-4 col-md-3 col-12 mb-2 p-3">
+                        <div class="card">
+                            <img src="@product.ImageThumbnailUrl" alt="" style="width:100%; height:200px" />
+                            <div class="card-body">
+                                <h4 class="float-right">@product.Price.ToString("c")</h4>
+                                <h6 class="align-top">
+                                    <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@product.ProductId">@product.ProductName</a>
+                                </h6>
+                                @*<p>@product.ShortDescription.Substring(20) </p>*@
+                                <a href="#" class="btn btn-primary">To Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+
